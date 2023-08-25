@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 export class SomethingController {
   constructor(private configService: ConfigService) {}
   @Get()
-  getHello() {
-    return 'hello';
+  getEnv() {
+    return this.configService.get<string>('ENV1');
   }
 }
