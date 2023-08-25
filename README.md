@@ -36,7 +36,7 @@ npm i --save @nestjs/config
 
 ## Situation
 
-[Situation-1: Import ConfigModule in App and get env from Something service](https://github.com/tulehuynhnhat/Nestjs-config/tree/situation-1)
+[Situation 1: Import ConfigModule in App and get env from Something service](https://github.com/tulehuynhnhat/Nestjs-config/tree/situation-1)
 
 [Situation 2 branch: Import ConfigModule in App module set Global and get env from Something service](https://github.com/tulehuynhnhat/Nestjs-config/tree/situation-2)
 
