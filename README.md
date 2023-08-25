@@ -7,8 +7,8 @@ Why create this project?
 - Know how to load and parse a `.env` file from the project root directory and merge key/value pairs from the `.env` file with environment variables assigned to `process.env`
 - Know how to use configuration (built-in Nest) to solve some problem
 
-Github: https://github.com/tulehuynhnhat/Nestjs-config
-Node: 18.17.1
+Github: https://github.com/tulehuynhnhat/Nestjs-config  
+Node: 18.17.1  
 @nestjs/config: 3.0.0
 
 ## Project overview
