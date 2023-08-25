@@ -31,8 +31,9 @@ npm i --save @nestjs/config
 ### Module & API
 
 - App
-- Something - GET: http://localhost:3000/something/
-  Dependency: App -> Something
+- Something
+  - GET: http://localhost:3000/something/
+- Dependency: App -> Something
 
 ## Situation
 
