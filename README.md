@@ -13,7 +13,7 @@ Github: https://github.com/tulehuynhnhat/Nestjs-config
 Node: 18.17.1  
 @nestjs/config: 3.0.0
 
-### Setup
+### Setup after init project
 
 Create `.env` file
 
@@ -40,4 +40,4 @@ npm i --save @nestjs/config
 
 [Situation 2 branch: Import ConfigModule in App module set Global and get env from Something service](https://github.com/tulehuynhnhat/Nestjs-config/tree/situation-2)
 
-[Situation 3 branch: get env from main](https://github.com/tulehuynhnhat/Nestjs-config/tree/situation-3)
+[Situation 3 branch: Get env from main](https://github.com/tulehuynhnhat/Nestjs-config/tree/situation-3)
