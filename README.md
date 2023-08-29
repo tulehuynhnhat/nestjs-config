@@ -1,5 +1,23 @@
 # Situation 3 branch: Get env from main
 
+```env
+//.env
+ENV1=value_env1
+ENV2=value_env2
+PORT=3000
+```
+
+```ts
+//app.module
+import { Module } from '@nestjs/common';
+import { SomethingModule } from './something/something.module';
+import { ConfigModule } from '@nestjs/config';
+@Module({
+  imports: [ConfigModule.forRoot(), SomethingModule],
+})
+export class AppModule {}
+```
+
 ```ts
 //main.ts
 import { NestFactory } from '@nestjs/core';
@@ -14,15 +32,4 @@ async function bootstrap() {
   await app.listen(port);
 }
 bootstrap();
-```
-
-```ts
-//app.module
-import { Module } from '@nestjs/common';
-import { SomethingModule } from './something/something.module';
-import { ConfigModule } from '@nestjs/config';
-@Module({
-  imports: [ConfigModule.forRoot(), SomethingModule],
-})
-export class AppModule {}
 ```
