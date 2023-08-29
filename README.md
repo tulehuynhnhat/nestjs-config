@@ -1,44 +1,62 @@
-# NestJS - Configuration
-
-## Introduction
-
-Why create this project?
-
-- Know how to load and parse a `.env` file from the project root directory and merge key/value pairs from the `.env` file with environment variables assigned to `process.env`
-- Know how to use configuration (built-in Nest) to solve some problem
-
-## Project overview
-
-Github: https://github.com/tulehuynhnhat/Nestjs-config  
-Node: 18.17.1  
-@nestjs/config: 3.0.0
-
-### Setup after init project
-
-Create `.env` file
+# Situation 4: Custom configuration files
 
 ```env
+//.env
 ENV1=value_env1
 ENV2=value_env2
+PORT=3000
+JWT_ACCESS_TOKEN_SECRET=access-token-secret
+JWT_REFESH_TOKEN_SECRET=refesh-token-secret
 ```
 
-Install package
-
-```bash
-npm i --save @nestjs/config
+```ts
+//config/configuration
+export default () => ({
+  port: parseInt(process.env.PORT) || 3000,
+  jwt: {
+    accessToken: process.env.JWT_ACCESS_TOKEN_SECRET,
+    refreshToken: process.env.JWT_REFESH_TOKEN_SECRET,
+  },
+  env1: process.env.ENV1,
+  env2: process.env.ENV2,
+});
 ```
 
-### Module & API
+```ts
+//app.module
+import { Module } from '@nestjs/common';
+import { SomethingModule } from './something/something.module';
+import { ConfigModule } from '@nestjs/config';
+import configuration from 'config/configuration';
 
-- App
-- Something
-  - GET: http://localhost:3000/something/
-- Dependency: App -> Something
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [configuration],
+    }),
+    SomethingModule,
+  ],
+})
+export class AppModule {}
+```
 
-## Situation
+```ts
+//main
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { ConfigService } from '@nestjs/config';
 
-[Situation 1: Import ConfigModule in App and get env from Something service](https://github.com/tulehuynhnhat/Nestjs-config/tree/situation-1)
-
-[Situation 2: Import ConfigModule in App module set Global and get env from Something service](https://github.com/tulehuynhnhat/Nestjs-config/tree/situation-2)
-
-[Situation 3: Get env from main](https://github.com/tulehuynhnhat/Nestjs-config/tree/situation-3)
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
+  const port = configService.get('port');
+  await app.listen(port);
+  console.log(configService.get('port'));
+  console.log(configService.get('jwt.accessToken')); // or configService.get('JWT_ACCESS_TOKEN_SECRET')
+  console.log(configService.get('jwt.refreshToken')); // or configService.get('JWT_REFESH_TOKEN_SECRET')
+  console.log(configService.get('env1'));
+  console.log(configService.get('env2'));
+}
+bootstrap();
+```
