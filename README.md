@@ -18,7 +18,7 @@ export class AppModule {}
 ```
 
 ```ts
-//test.controller
+//something.controller
 import { Controller, Get } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
