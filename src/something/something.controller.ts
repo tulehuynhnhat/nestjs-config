@@ -5,6 +5,7 @@ import { IConfig } from 'src/config/configuration';
 @Controller('something')
 export class SomethingController {
   constructor(private configService: ConfigService<IConfig>) {}
+  //                                     Type here ^^^^^^^
   @Get()
   getENV() {
     const env1 = this.configService.get<string>('env1');
