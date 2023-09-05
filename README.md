@@ -45,4 +45,4 @@ npm i --save @nestjs/config
 
 [Situation 4: Custom configuration files](https://github.com/tulehuynhnhat/Nestjs-config/tree/situation-4)
 
-[Situation 4: Use Config Service with interface as the type hint](https://github.com/tulehuynhnhat/Nestjs-config/tree/situation-5)
+[Situation 5: Use Config Service with interface as the type hint](https://github.com/tulehuynhnhat/Nestjs-config/tree/situation-5)
