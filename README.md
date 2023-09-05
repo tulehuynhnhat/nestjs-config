@@ -1,46 +1,59 @@
-# NestJS - Configuration
-
-## Introduction
-
-Why create this project?
-
-- Know how to load and parse a `.env` file from the project root directory and merge key/value pairs from the `.env` file with environment variables assigned to `process.env`
-- Know how to use configuration (built-in Nest) to solve some problem
-
-## Project overview
-
-Github: https://github.com/tulehuynhnhat/Nestjs-config  
-Node: 18.17.1  
-@nestjs/config: 3.0.0
-
-### Setup after init project
-
-Create `.env` file
+# Situation 5: Use Config Service with interface as the type hint
 
 ```env
+//.env
 ENV1=value_env1
 ENV2=value_env2
+PORT=3000
+JWT_ACCESS_TOKEN_SECRET=access-token-secret
+JWT_REFESH_TOKEN_SECRET=refesh-token-secret
 ```
 
-Install package
+```ts
+// main.ts
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { ConfigService } from '@nestjs/config';
+import { IConfig } from './config/configuration';
 
-```bash
-npm i --save @nestjs/config
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService<IConfig>);
+  //                                Type here ^^^^^^^
+  const port = configService.get<number>('port');
+  await app.listen(port);
+}
+
+bootstrap();
 ```
 
-### Module & API
+```ts
+// something.ts
+import { Controller, Get } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { IConfig } from 'src/config/configuration';
 
-- App
-- Something
-  - GET: http://localhost:3000/something/
-- Dependency: App -> Something
+@Controller('something')
+export class SomethingController {
+  constructor(private configService: ConfigService<IConfig>) {}
+  //                                     Type here ^^^^^^^
+  @Get()
+  getENV() {
+    const env1 = this.configService.get<string>('env1');
+    const env2 = this.configService.get<string>('env2');
+    const port = this.configService.get<number>('port');
+    const jwtAccessToken = this.configService.get<string>('jwtAccessToken');
+    const jwtRefreshToken = this.configService.get<string>('jwtRefreshToken');
 
-## Situation
+    return {
+      env1,
+      env2,
+      port,
+      jwtAccessToken,
+      jwtRefreshToken,
+    };
+  }
+}
+```
 
-[Situation 1: Import ConfigModule in App and get env from Something service](https://github.com/tulehuynhnhat/Nestjs-config/tree/situation-1)
-
-[Situation 2: Import ConfigModule in App module set Global and get env from Something service](https://github.com/tulehuynhnhat/Nestjs-config/tree/situation-2)
-
-[Situation 3: Get env from main](https://github.com/tulehuynhnhat/Nestjs-config/tree/situation-3)
-
-[Situation 4: Custom configuration files](https://github.com/tulehuynhnhat/Nestjs-config/tree/situation-4)
+When add IConfig interface as hint type you can see it by ctrl + space when get a env
