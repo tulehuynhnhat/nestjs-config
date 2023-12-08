@@ -13,6 +13,13 @@ Github: https://github.com/tulehuynhnhat/Nestjs-config
 Node: 18.17.1  
 @nestjs/config: 3.0.0
 
+### Module & API
+
+- App
+- Something
+  - GET: http://localhost:3000/something/
+- Dependency: App -> Something
+
 ### Setup after init project
 
 Create `.env` file
@@ -27,13 +34,6 @@ Install package
 ```bash
 npm i --save @nestjs/config
 ```
-
-### Module & API
-
-- App
-- Something
-  - GET: http://localhost:3000/something/
-- Dependency: App -> Something
 
 ## Situation
 
